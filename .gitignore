@@ -1,7 +1,12 @@
 .DS_Store
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
-paper_analysis/data_model/data/microfluidics/
-paper_analysis/data_model/data/petri_dish/
+**/__pycache__/
+**/*.py[cod]
+**/.ipynb_checkpoints/
+
+# Local-only / server notebooks
+paper_analysis/*_SERVER.ipynb
+
+# Large/generated data & outputs (keep out of git)
+paper_analysis/data_model/data/
+paper_analysis/data_model/model/
 paper_analysis/paper_analysis_output/
