@@ -1,0 +1,7 @@
+.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+paper_analysis/data_model/data/microfluidics/
+paper_analysis/data_model/data/petri_dish/
+paper_analysis/paper_analysis_output/
