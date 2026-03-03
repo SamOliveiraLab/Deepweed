@@ -184,6 +184,16 @@ Check the [PyTorch installation page](https://pytorch.org/get-started/locally/) 
 
 ## Data Setup
 
+### Download the Dataset
+
+The imaging data used in this study is publicly available on Zenodo:
+
+**[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18843918.svg)](https://doi.org/10.5281/zenodo.18843918)**
+
+Download the dataset and extract it to a location of your choice (referred to as `BASE_PATH` in the notebook configuration).
+
+### Expected Directory Layout
+
 The pipeline expects your imaging data organized as follows:
 
 ```
@@ -205,7 +215,7 @@ The pipeline expects your imaging data organized as follows:
     └── microfluidics/
 ```
 
-**Note:** The model weights are included in this repository via Git LFS. Your imaging data (images or video) must be supplied separately.
+**Note:** The model weights are included in this repository via Git LFS. The imaging data (images and video) must be downloaded separately from Zenodo using the link above.
 
 ## Usage
 
