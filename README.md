@@ -2,7 +2,7 @@
 
 Automated duckweed segmentation, tracking, and growth analysis pipeline using deep learning. This tool processes time-lapse microscopy data from **petri dish** and **microfluidics** experiments to segment individual duckweed fronds, track them across frames, infer lineage (budding events), and generate publication-ready figures.
 
-Developed at  Oliveira Lab - [JSNN](https://www.ncat.edu/jsnn/index.php)
+Developed at [Oliveira Lab](https://www.oliveiralab.me)
 
 ## Table of Contents
 
