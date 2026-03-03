@@ -2,7 +2,7 @@
 
 Automated duckweed segmentation, tracking, and growth analysis pipeline using deep learning. This tool processes time-lapse microscopy data from **petri dish** and **microfluidics** experiments to segment individual duckweed fronds, track them across frames, infer lineage (budding events), and generate publication-ready figures.
 
-Developed at [North Carolina A&T State University](https://www.ncat.edu/) — Oliveira Lab.
+Developed at  Oliveira Lab - [JSNN](https://www.ncat.edu/jsnn/index.php)
 
 ## Table of Contents
 
@@ -26,12 +26,12 @@ Developed at [North Carolina A&T State University](https://www.ncat.edu/) — Ol
 
 Deepweed provides an end-to-end computer vision pipeline:
 
-1. **Segmentation** — A U-Net deep learning model identifies individual duckweed fronds in each frame.
-2. **Tracking** — Bayesian tracking (btrack) assigns persistent IDs across frames.
+1. **Segmentation** - A U-Net deep learning model identifies individual duckweed fronds in each frame.
+2. **Tracking** - Bayesian tracking (btrack) assigns persistent IDs across frames.
 3. **Track Stitching** — Fragmented tracks from the same plant are merged.
-4. **Lineage Inference** — Parent-child (budding) relationships are detected.
-5. **Cluster Analysis** — Fronds are grouped into spatial clusters (e.g., individual petri dishes or microfluidic wells).
-6. **Visualization** — Publication-ready figures: population dynamics, growth curves, lineage timelines, trajectory plots, and animated GIFs.
+4. **Lineage Inference** - Parent-child (budding) relationships are detected.
+5. **Cluster Analysis** - Fronds are grouped into spatial clusters (e.g., individual petri dishes or microfluidic wells).
+6. **Visualization** - Publication-ready figures: population dynamics, growth curves, lineage timelines, trajectory plots, and animated GIFs.
 
 Two dataset modes are supported:
 
@@ -250,15 +250,15 @@ FRAME_LIMIT = 50   # Set to None for all frames
 
 Run the notebook cells **in order**. The pipeline follows this sequence:
 
-1. **Part 1** — Setup: imports, configuration, model loading
-2. **Part 2** — Segmentation demo on a single image (sanity check)
-3. **Part 3** — Full pipeline: segmentation + tracking + lineage inference on all frames
-4. **Part 4** — Cluster analysis: group fronds, select regions of interest
-5. **Part 5** — Generate visualizations (population plots, growth curves, timelines)
-6. **Part 6** — Lineage and generation analysis
-7. **Part 7** — Statistical analysis
-8. **Part 8** — Cross-dataset comparison
-9. **Part 9** — Summary of outputs
+1. **Part 1** - Setup: imports, configuration, model loading
+2. **Part 2** - Segmentation demo on a single image (sanity check)
+3. **Part 3** - Full pipeline: segmentation + tracking + lineage inference on all frames
+4. **Part 4** - Cluster analysis: group fronds, select regions of interest
+5. **Part 5** - Generate visualizations (population plots, growth curves, timelines)
+6. **Part 6** - Lineage and generation analysis
+7. **Part 7** - Statistical analysis
+8. **Part 8** - Cross-dataset comparison
+9. **Part 9** - Summary of outputs
 
 **Checkpointing:** After Part 3, you can save a checkpoint (Cell 24) and reload it later (Cell 8) to skip reprocessing.
 
