@@ -7,5 +7,7 @@
 paper_analysis/*_SERVER.ipynb
 
 # Large/generated data & outputs (keep out of git)
-paper_analysis/data_model/data/
+paper_analysis/data_model/data/**
+!paper_analysis/data_model/data/**/
+!paper_analysis/data_model/data/**/.gitkeep
 paper_analysis/paper_analysis_output/
