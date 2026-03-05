@@ -266,9 +266,6 @@ Run the notebook cells **in order**. The pipeline follows this sequence:
 4. **Part 4** - Cluster analysis: group fronds, select regions of interest
 5. **Part 5** - Generate visualizations (population plots, growth curves, timelines)
 6. **Part 6** - Lineage and generation analysis
-7. **Part 7** - Statistical analysis
-8. **Part 8** - Cross-dataset comparison
-9. **Part 9** - Summary of outputs
 
 **Checkpointing:** After Part 3, you can save a checkpoint (Cell 24) and reload it later (Cell 8) to skip reprocessing.
 
