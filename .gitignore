@@ -16,3 +16,4 @@ paper_analysis/paper_analysis_output/
 # Kept on the GPU server (Bukola/deepweed/models/finetuned/models) and locally;
 # the notebook (1.3c) locates it via candidate paths.
 paper_analysis/data_model/model/deepweed_cpsam
+._*
