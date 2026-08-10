@@ -1,0 +1,57 @@
+cff-version: 1.2.0
+message: "If you use Deepweed, please cite the archived software release."
+title: Deepweed
+abstract: >-
+  Deepweed is a computational framework for automated individual segmentation, temporal
+  tracking, and clonal lineage reconstruction from time-lapse imaging of duckweed (Wolffia
+  australiana), in both free-floating petri dish and microfluidic plant-on-chip culture. It
+  resolves individual fronds rather than population-level biomass, and reconstructs
+  mother-daughter relationships across generations. This release (v1.1.0) is the code state
+  accompanying the revised manuscript BIOINF-2026-0506, submitted to Bioinformatics.
+  Relative to the original submission it adds: retraining of the petri dish U-Net at 512 x
+  512 input resolution; an independent test set with blank-canvas ground truth and its
+  evaluation script; tracking error metrics (identity switch rate, track fragmentation rate,
+  and per-quarter temporal stability); and rendering of the supplementary videos with
+  post-stitching track labels and correction for global stage displacement.
+type: software
+license: MIT
+repository-code: "https://github.com/SamOliveiraLab/Deepweed"
+version: v1.1.0
+# Concept DOI: always resolves to the latest release. This is what the paper cites.
+doi: "10.5281/zenodo.18844282"
+authors:
+  - family-names: Oyeniran
+    given-names: Tolulope
+    affiliation: "North Carolina Agricultural and Technical State University"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: Akindipe
+    given-names: Bukola
+    affiliation: "North Carolina Agricultural and Technical State University"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: Islam
+    given-names: Tasmia
+    affiliation: "University of North Carolina at Greensboro"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: Scheel
+    given-names: Joshua D.
+    affiliation: "The University of Texas at Austin"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: Josephs
+    given-names: Eric A.
+    affiliation: "Stony Brook University"
+    orcid: "https://orcid.org/0000-0002-5330-6842"
+  - family-names: Oliveira
+    given-names: Samuel M. D.
+    affiliation: "North Carolina Agricultural and Technical State University"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+keywords:
+  - duckweed
+  - Wolffia australiana
+  - segmentation
+  - cell tracking
+  - lineage tracking
+  - U-Net
+  - deep learning
+  - plant phenotyping
+  - microfluidics
+  - time-lapse imaging

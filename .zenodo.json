@@ -1,0 +1,58 @@
+{
+  "title": "SamOliveiraLab/Deepweed: Deepweed",
+  "description": "Deepweed is a computational framework for automated individual segmentation, temporal tracking, and clonal lineage reconstruction from time-lapse imaging of duckweed (Wolffia australiana), in both free-floating petri dish and microfluidic plant-on-chip culture. It resolves individual fronds rather than population-level biomass, and reconstructs mother-daughter relationships across generations. This release (v1.1.0) is the code state accompanying the revised manuscript BIOINF-2026-0506, submitted to Bioinformatics. Relative to the original submission it adds: retraining of the petri dish U-Net at 512 x 512 input resolution; an independent test set with blank-canvas ground truth and its evaluation script; tracking error metrics (identity switch rate, track fragmentation rate, and per-quarter temporal stability); and rendering of the supplementary videos with post-stitching track labels and correction for global stage displacement. The archive contains the full analysis notebook, the training and evaluation scripts, the independent test set with ground-truth masks, and all three trained model checkpoints. The checkpoints are stored via Git LFS in the GitHub repository and are therefore not contained in GitHub's own release archive; they are included in full here. Source repository: https://github.com/SamOliveiraLab/Deepweed (tag v1.1.0). Imaging data are archived separately at https://doi.org/10.5281/zenodo.18843918",
+  "upload_type": "software",
+  "license": "mit-license",
+  "creators": [
+    {
+      "name": "Oyeniran, Tolulope",
+      "affiliation": "North Carolina Agricultural and Technical State University"
+    },
+    {
+      "name": "Akindipe, Bukola",
+      "affiliation": "North Carolina Agricultural and Technical State University"
+    },
+    {
+      "name": "Islam, Tasmia",
+      "affiliation": "University of North Carolina at Greensboro"
+    },
+    {
+      "name": "Scheel, Joshua D.",
+      "affiliation": "The University of Texas at Austin"
+    },
+    {
+      "name": "Josephs, Eric A.",
+      "affiliation": "Stony Brook University",
+      "orcid": "0000-0002-5330-6842"
+    },
+    {
+      "name": "Oliveira, Samuel M. D.",
+      "affiliation": "North Carolina Agricultural and Technical State University"
+    }
+  ],
+  "keywords": [
+    "duckweed",
+    "Wolffia australiana",
+    "segmentation",
+    "cell tracking",
+    "lineage tracking",
+    "U-Net",
+    "deep learning",
+    "plant phenotyping",
+    "microfluidics",
+    "time-lapse imaging"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/SamOliveiraLab/Deepweed",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.5281/zenodo.18843917",
+      "relation": "isSupplementedBy",
+      "scheme": "doi"
+    }
+  ],
+  "notes": "Trained model weights and example images are stored with Git LFS and are therefore NOT present in GitHub-generated release archives. Attach them to the Zenodo record manually so the published Availability statement is satisfied."
+}
