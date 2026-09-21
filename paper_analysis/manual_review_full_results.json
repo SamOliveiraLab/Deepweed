@@ -1,0 +1,27 @@
+{
+  "dataset": "petri_dish",
+  "n_frames": 1664,
+  "hours": 138.66666666666666,
+  "auto_links": 6,
+  "review": {
+    "reviewed": 43,
+    "accepted": 42,
+    "rejected": 0,
+    "skipped": 1
+  },
+  "pending": 0,
+  "before": {
+    "n_raw_tracks": 367,
+    "n_effective_tracks": 367,
+    "id_switches": 35,
+    "total_associations": 32111,
+    "id_switch_rate": 0.001089969169443493
+  },
+  "after": {
+    "n_raw_tracks": 367,
+    "n_effective_tracks": 319,
+    "id_switches": 11,
+    "total_associations": 32111,
+    "id_switch_rate": 0.00034256173896795493
+  }
+}

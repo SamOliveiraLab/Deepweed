@@ -1,0 +1,135 @@
+{
+  "sizes": [
+    10,
+    20,
+    30,
+    40,
+    50
+  ],
+  "seeds": 3,
+  "epochs": 400,
+  "n_test": 10,
+  "n_pool": 50,
+  "input_size": [
+    512,
+    128
+  ],
+  "test_images": [
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_102.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_114.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_12.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_126.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_138.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_39.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_42.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_84.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_87.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_images/new_img_90.png"
+  ],
+  "test_masks": [
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_102.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_114.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_12.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_126.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_138.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_39.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_42.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_84.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_87.png",
+    "/Users/smdoliveira/Workspace/deepweed_micro/val_instance_masks/new_img_90.png"
+  ],
+  "runs": [
+    {
+      "size": 10,
+      "seed": 0,
+      "dice": 0.4052546436761584,
+      "iou": 0.2575914052917748
+    },
+    {
+      "size": 10,
+      "seed": 1,
+      "dice": 0.3836002103511431,
+      "iou": 0.24031801719627893
+    },
+    {
+      "size": 10,
+      "seed": 2,
+      "dice": 0.42397278281091777,
+      "iou": 0.27296405129164636
+    },
+    {
+      "size": 20,
+      "seed": 0,
+      "dice": 0.37061575214807474,
+      "iou": 0.23021000704879743
+    },
+    {
+      "size": 20,
+      "seed": 1,
+      "dice": 0.3263323035612653,
+      "iou": 0.19699112151640424
+    },
+    {
+      "size": 20,
+      "seed": 2,
+      "dice": 0.4129457193001772,
+      "iou": 0.2631902620161508
+    },
+    {
+      "size": 30,
+      "seed": 0,
+      "dice": 0.37938406890755155,
+      "iou": 0.23725304536159758
+    },
+    {
+      "size": 30,
+      "seed": 1,
+      "dice": 0.49373716266205403,
+      "iou": 0.33357624959324983
+    },
+    {
+      "size": 30,
+      "seed": 2,
+      "dice": 0.48474872897637455,
+      "iou": 0.32476935760128806
+    },
+    {
+      "size": 40,
+      "seed": 0,
+      "dice": 0.5132156690464041,
+      "iou": 0.3517241583606895
+    },
+    {
+      "size": 40,
+      "seed": 1,
+      "dice": 0.5470204960947314,
+      "iou": 0.3850131295453823
+    },
+    {
+      "size": 40,
+      "seed": 2,
+      "dice": 0.5541133999093077,
+      "iou": 0.39115249927934614
+    },
+    {
+      "size": 50,
+      "seed": 0,
+      "dice": 0.5684648552982475,
+      "iou": 0.4039135886367842
+    },
+    {
+      "size": 50,
+      "seed": 1,
+      "dice": 0.5577812176369796,
+      "iou": 0.3927415599491345
+    },
+    {
+      "size": 50,
+      "seed": 2,
+      "dice": 0.5613051056590275,
+      "iou": 0.395020968361013
+    }
+  ],
+  "done": true,
+  "best_model": "/Users/smdoliveira/Workspace/deepweed_sweep_v2/micro_sweep_v4_results_best_model.pt"
+}
