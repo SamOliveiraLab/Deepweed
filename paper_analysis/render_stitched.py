@@ -114,7 +114,118 @@ class UnionFind:
             self.p[max(ra, rb)] = min(ra, rb)
 
 
-def build_stitch_map(tracks, max_gap=3, max_dist=20.0, offsets=None):
+
+def handling_windows(offsets, jump_px=8.0, pad=1, join_within=6):
+    """Frames where the plate was handled, from per-frame cumulative drift.
+
+    A jump larger than `jump_px` between consecutive frames marks handling.
+    Consecutive jumps closer than `join_within` frames form one window. Each
+    window is returned as (last stable frame before, first stable frame after),
+    padded by `pad` so blurred mid-move frames are excluded."""
+    cum = np.asarray(offsets, dtype=float)
+    step = np.hypot(*(cum[1:] - cum[:-1]).T)
+    jumps = [i for i, m in enumerate(step) if m > jump_px]     # jump i -> i+1
+    windows, cur = [], None
+    for j in jumps:
+        if cur is None or j - cur[1] > join_within:
+            if cur is not None:
+                windows.append(cur)
+            cur = [j, j]
+        else:
+            cur[1] = j
+    if cur is not None:
+        windows.append(cur)
+    n = len(cum)
+    return [(max(0, a - pad), min(n - 1, b + 1 + pad)) for a, b in windows]
+
+
+def rigid_fit(a, b, iters=6):
+    """Shift plus rotation mapping points a onto points b, refined by
+    alternating nearest matching and a robust partial-affine fit."""
+    M = np.array([[1, 0, 0], [0, 1, 0]], np.float32)
+    for _ in range(iters):
+        a2 = cv2.transform(a[None].astype(np.float32), M)[0]
+        D = cdist(a2, b)
+        r, c = linear_sum_assignment(D)
+        keep = D[r, c] <= np.percentile(D[r, c], 70)
+        if keep.sum() < 3:
+            break
+        M2, _ = cv2.estimateAffinePartial2D(a[r][keep].astype(np.float32),
+                                            b[c][keep].astype(np.float32),
+                                            method=cv2.LMEDS)
+        if M2 is None:
+            break
+        M = M2.astype(np.float32)
+    return M
+
+
+def bridge_handling(tracks, uf, g_first, g_last, windows, max_dist=20.0, slack=2):
+    """Carry identities across plate-handling windows.
+
+    For each window, fit a rigid transform from every frond visible on the
+    last stable frame before it to every frond on the first stable frame after,
+    then link track groups that end going into the window with groups that
+    start coming out of it, when the transformed end lands within `max_dist`
+    of a start. Returns the number of links made per window."""
+    made = []
+    for f0, f1 in windows:
+        pos_before, pos_after = [], []
+        for tr in tracks:
+            t = list(tr.t)
+            if f0 in t:
+                j = t.index(f0); pos_before.append((tr.x[j], tr.y[j]))
+            if f1 in t:
+                j = t.index(f1); pos_after.append((tr.x[j], tr.y[j]))
+        if len(pos_before) < 3 or len(pos_after) < 3:
+            made.append(0); continue
+        M = rigid_fit(np.array(pos_before), np.array(pos_after))
+        ang = np.degrees(np.arctan2(M[1, 0], M[0, 0]))
+        # tolerance from the data: well below the closest pair of fronds after
+        # the move, so a nudged frond can be recovered without grabbing a neighbour
+        Pa = np.array(pos_after)
+        Dnn = cdist(Pa, Pa); np.fill_diagonal(Dnn, np.inf)
+        tol = float(min(max_dist, 0.8 * Dnn.min(axis=1).min()))
+
+        # groups alive on the last stable frame that do not survive the window,
+        # and groups alive on the first stable frame that did not exist before it.
+        # Positions are taken on those stable frames, not on mid-move endpoints.
+        def pos_on(tr, f):
+            t = list(tr.t); j = t.index(f); return tr.x[j], tr.y[j]
+        ends, starts, seen_e, seen_s = [], [], set(), set()
+        for i, tr in enumerate(tracks):
+            r = uf.find(i)
+            if f0 in tr.t and g_last[r] < f1 and r not in seen_e:
+                x, y = pos_on(tr, f0); ends.append((r, x, y)); seen_e.add(r)
+            if f1 in tr.t and g_first[r] > f0 and r not in seen_s:
+                x, y = pos_on(tr, f1); starts.append((r, x, y)); seen_s.add(r)
+        if not ends or not starts:
+            made.append(0); continue
+        e_xy = cv2.transform(np.array([(x, y) for _, x, y in ends], np.float32)[None], M)[0]
+        s_xy = np.array([(x, y) for _, x, y in starts], np.float32)
+        D = cdist(e_xy, s_xy)
+        r, c = linear_sum_assignment(D)
+        n = 0
+        for ri, ci in zip(r, c):
+            if D[ri, ci] >= tol:
+                continue
+            ra, rb = uf.find(ends[ri][0]), uf.find(starts[ci][0])
+            if ra == rb or not (g_last[ra] < g_first[rb]):
+                continue
+            uf.union(ra, rb)
+            root = uf.find(ra)
+            g_first[root] = min(g_first[ra], g_first[rb])
+            g_last[root] = max(g_last[ra], g_last[rb])
+            n += 1
+        made.append(n)
+        print(f"Handling window frames {f0}-{f1}: rigid fit shift "
+              f"({M[0,2]:+.1f}, {M[1,2]:+.1f}) px, rotation {ang:+.2f} deg, "
+              f"tolerance {tol:.0f} px; {n} identities carried across "
+              f"({len(ends)} ends, {len(starts)} starts)")
+    return made
+
+
+def build_stitch_map(tracks, max_gap=3, max_dist=20.0, offsets=None,
+                     windows=None):
     """Union tracks whose end matches another track's start (same frond).
     If `offsets` (per-frame cumulative global drift) is given, endpoints are
     matched in drift-corrected coordinates so stage bumps do not break IDs."""
@@ -205,6 +316,9 @@ def build_stitch_map(tracks, max_gap=3, max_dist=20.0, offsets=None):
                 merge(a, b)
                 used_end.add(a)
                 used_start.add(b)
+
+    if windows:
+        bridge_handling(tracks, uf, g_first, g_last, windows, max_dist=40.0)
 
     # sequential display IDs ordered by first appearance of each merged group
     groups = {}
@@ -301,6 +415,9 @@ def main():
                     help="load tracks_cache.json from mask-cache dir, skip btrack")
     ap.add_argument("--stitch-gap", type=int, default=3)
     ap.add_argument("--stitch-dist", type=float, default=20.0)
+    ap.add_argument("--handling-shifts", default=None,
+                    help="offsets.json from detect_shifts.py; bridges identities "
+                         "across plate-handling windows with a rigid fit")
     ap.add_argument("--min-label-len", type=int, default=1,
                     help="only label tracks whose stitched span >= this many frames")
     args = ap.parse_args()
@@ -412,8 +529,15 @@ def main():
         import json as _j
         offsets = [tuple(v) for v in _j.load(open(off_p))["cumulative"]]
         print(f"Loaded per-frame drift offsets ({len(offsets)} frames)")
+    windows = None
+    if args.handling_shifts:
+        import json as _j2
+        cum = _j2.load(open(args.handling_shifts))["cumulative"]
+        windows = handling_windows(cum)
+        print(f"Plate-handling windows from {args.handling_shifts}: {windows}")
     display_id = build_stitch_map(tracks, max_gap=args.stitch_gap,
-                                  max_dist=args.stitch_dist, offsets=offsets)
+                                  max_dist=args.stitch_dist, offsets=offsets,
+                                  windows=windows)
 
     # suppress labels for short-lived stitched groups (junk detections)
     if args.min_label_len > 1:
