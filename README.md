@@ -188,7 +188,7 @@ Check the [PyTorch installation page](https://pytorch.org/get-started/locally/) 
 
 The imaging data used in this study is publicly available on Zenodo:
 
-**[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18843918.svg)](https://doi.org/10.5281/zenodo.18843918)**
+**[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18843917.svg)](https://doi.org/10.5281/zenodo.18843917)**
 
 Download the dataset and extract it to a location of your choice (referred to as `BASE_PATH` in the notebook configuration).
 
